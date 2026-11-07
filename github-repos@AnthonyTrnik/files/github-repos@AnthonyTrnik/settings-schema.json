@@ -2,7 +2,7 @@
     "repos": {
         "type": "list",
         "description": "Repositories",
-        "tooltip": "repositories written as owner/name, for example: torvalds/linux",
+        "tooltip": "repositories written as owner/name for example: torvalds/linux",
         "columns": [
             {
                 "id": "repo",
@@ -17,7 +17,7 @@
     "token": {
         "type": "entry",
         "default": "",
-        "description": "GitHub token (optional)",
+        "description": "Github token (optional)",
         "tooltip": "increase the API rate limit from 60 to 5000 requests per hour and gives access to private repositories. Create a 'fine-grained' token with only the 'Contents' and 'Metadata' permissions and set them to Read-only."
     },
     "refresh-interval": {
@@ -28,5 +28,11 @@
         "step": 5,
         "units": "minutes",
         "description": "refresh every"
+    },
+    "send-notifications": {
+        "type": "switch",
+        "default": true,
+        "description": "Send notifications",
+        "tooltip": "A notification appears when a repo gets a new commit"
     }
 }

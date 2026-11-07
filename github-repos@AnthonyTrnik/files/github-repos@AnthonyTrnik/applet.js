@@ -29,7 +29,7 @@ class GithubReposApplet extends Applet.IconApplet {
 
         // allow horizontal and vertical panels
         this.setAllowedLayout(Applet.AllowedLayout.BOTH);
-        // icon is "repo" from GitHub Octicons (MIT license): https://primer.style/octicons/icon/repo-16/
+        // icon is "repo" from github Octicons https://primer.style/octicons/icon/repo-16/
         this.set_applet_icon_symbolic_path(this.metadata.path + "/imgs/repo-symbolic.svg");
         this.set_applet_tooltip(_("GitHub repositories"));
 
@@ -41,6 +41,8 @@ class GithubReposApplet extends Applet.IconApplet {
         this.settings.bind("repos", "repos", this.refreshAll);
         this.settings.bind("token", "token", this.refreshAll);
         this.settings.bind("refresh-interval", "refreshInterval", this.restartTimer);
+        // this setting just maps to a variable
+        this.settings.bind("send-notifications", "sendNotifications");
 
         // popup menu when left clicking the applet, OOP stuff :)
         this.menuManager = new PopupMenu.PopupMenuManager(this);
@@ -139,11 +141,12 @@ class GithubReposApplet extends Applet.IconApplet {
                 const commit = this.parse(status, body, rateLimited);
                 this._cache[name] = commit;
 
-                // sned notification if new commit
+                // send notification if new commit
                 // if checks in case the callback fails and commit is undefined
                 if (commit.id) {
                     let previousId = this._lastCommitId[name];
-                    if (previousId && previousId !== commit.id) {
+                    // second check to avoid sending notification on the first update
+                    if (this.sendNotifications && previousId && previousId !== commit.id) {
                         Main.notify(_("New commit in %s").format(name),"%s - %s".format(commit.author, this.timeAgo(commit.date)));
                     }
                     this._lastCommitId[name] = commit.id;
