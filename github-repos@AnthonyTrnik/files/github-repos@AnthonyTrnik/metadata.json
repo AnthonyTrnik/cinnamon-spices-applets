@@ -1,0 +1,7 @@
+{
+    "uuid": "github-repos@AnthonyTrnik",
+    "name": "GitHub Repos",
+    "description": "display a list of clickable GitHub repos and the last commit (author and time)",
+    "max-instances": -1,
+    "version": "1.0"
+}
